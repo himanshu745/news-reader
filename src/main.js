@@ -3,6 +3,8 @@ import App from './App.vue'
 
 import Home from './components/home/Home.vue'
 import About from './components/about/About.vue'
+import ArticleDetails from './components/article-details/ArticleDetails.vue'
+import EditArticle from './components/edit-article/EditArticle.vue'
 
 import VueResource from "vue-resource";
 
@@ -21,6 +23,16 @@ const routes = [
   {
     path: '/about',
     component: About
+  },
+  {
+    name:"details",
+    path:'/article/details',
+    component:ArticleDetails
+  },
+  {
+    name:"edit",
+    path:'/article/edit',
+    component:EditArticle
   }
 ];
 

@@ -1,72 +1,35 @@
 <template>
-  <!-- this is a dropdown sources -->
   <div>
-    <div>
-      <h4>Select a News sources</h4>
-      <select v-on:change="sourceChanged" name id>
-        <option>Please select a new sources</option>
-        <option
-          v-for="source in sources"
-          v-bind:key="source.id"
-          v-bind:value="source.id"
-        >{{source.name}}</option>
-      </select>
-    </div>
+    <h1>Article</h1>
+    <router-link v-bind:to="{name:'edit'}">New Article</router-link>
 
-    <!-- dispaly my articles -->
-
-    <li v-for="article in articles" v-bind:key="article.id" class="media">
-      <div class="media-left">
-        <a v-bind:href="article.url">
-          <img class="media-object" v-bind:src="article.urlToImage" v-bind:alt="article.title" />
-        </a>
-      </div>
-      <div class="media-body">
-        <h4 class="media-heading">
-          <a v-bind:href="article.url" target="_blank">{{article.title}}</a>
-        </h4>
-      </div>
+    <ul>
+      <li v-for="article in articles" v-bind:key="article.id">
+    <router-link v-bind:to="{name :'details'}">{{article.title}}</router-link>
     </li>
+    </ul>
   </div>
 </template>
+
 
 <script>
 export default {
   name: "Home",
   data: function() {
     return {
-      articles: [],
-      sources: []
+      articles:[]
     };
   },
 
-  methods: {
-    getArticles: function(source) {
-      this.$http
-        .get(
-          `https://newsapi.org/v2/top-headlines?sources=${source}&apiKey=${process.env.VUE_APP_API_KEY}`
-        )
-        .then(function(data) {
-          this.articles = data.body.articles;
-          console.log(this.articles[0].title);
-        });
-    },
+  components: {},
 
-    sourceChanged: function(event) {
-      this.getArticles(event.target.value);
-    }
-  },
+  methods: {},
 
   created: function() {
-    // const source = "abc-news";
-    // this.getArticles(source);
-
     this.$http
-      .get(
-        `https://newsapi.org/v2/sources?apiKey=${process.env.VUE_APP_API_KEY}`
-      )
+      .get("https://example-api4.glitch.me/api/articles")
       .then(function(data) {
-        this.sources = data.body.sources;
+        this.articles = data.body.articles;
       });
   }
 };
